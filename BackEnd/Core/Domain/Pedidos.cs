@@ -9,17 +9,21 @@ namespace Core.Domain
         public Produtos Produto { get; set; }
         public float Valor { get; set; }
 
-        public Pedidos(int id, Produtos produto, float valor)
+        public DateTime CreatedAt { get; set; }
+
+        public Pedidos(int id, Produtos produto, float valor, DateTime createdAt)
         {
             Id = id;
             Produto = produto;
             Valor = MinValue(valor);
+            CreatedAt = createdAt;
         }
 
         public Pedidos(Produtos produto, float valor)
         {
             Produto = produto;
             Valor = MinValue(valor);
+            CreatedAt = DateTime.UtcNow;
         }
 
         public Pedidos()
