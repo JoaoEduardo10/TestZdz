@@ -5,9 +5,11 @@ namespace Core.Exceptions.enums
         PRO0001,
         PRO0002,
         PRO0003,
+        PRO0004,
 
         PEO0001,
         PEO0002,
+        PEO0003,
     }
 
     public static class ErrorCodeExtensions
@@ -17,9 +19,11 @@ namespace Core.Exceptions.enums
             { ErrorCodeEnum.PRO0001, ("Minimo de caracteres são 3", "PRO-0001")},
             { ErrorCodeEnum.PRO0002, ("Valor não pode ser menor ao igual a zero", "PRO-0002")},
             { ErrorCodeEnum.PRO0003, ("Não foi possivel cria o produto", "PRO-0003")},
+             { ErrorCodeEnum.PRO0004, ("Produto não encontrado", "PRO-0004")},
 
             { ErrorCodeEnum.PEO0001, ("Não foi possivel criar o pedido", "PE-0001")},
             { ErrorCodeEnum.PEO0002, ("Pedido não encontrado", "PE-0002")},
+            { ErrorCodeEnum.PEO0003, ("O valor total do pedido esta errado", "PE-0003")},
         };
 
         public static string GetMessage(this ErrorCodeEnum errorCode)

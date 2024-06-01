@@ -23,6 +23,11 @@ namespace Core.Domain
             Value = MinValue(value);
         }
 
+        public Produtos(int id)
+        {
+            Id = id;
+        }
+
         public Produtos()
         {
         }
