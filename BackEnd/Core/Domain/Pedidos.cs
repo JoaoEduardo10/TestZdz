@@ -3,26 +3,26 @@ using Core.Exceptions;
 
 namespace Core.Domain
 {
-    public class Pedido
+    public class Pedidos
     {
         public int Id { get; set; }
-        public Produto Produto { get; set; }
+        public Produtos Produto { get; set; }
         public float Valor { get; set; }
 
-        public Pedido(int id, Produto produto, float valor)
+        public Pedidos(int id, Produtos produto, float valor)
         {
             Id = id;
             Produto = produto;
             Valor = MinValue(valor);
         }
 
-        public Pedido(Produto produto, float valor)
+        public Pedidos(Produtos produto, float valor)
         {
             Produto = produto;
             Valor = MinValue(valor);
         }
 
-        public Pedido()
+        public Pedidos()
         {
         }
 

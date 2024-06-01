@@ -3,27 +3,27 @@ using Core.Exceptions.enums;
 
 namespace Core.Domain
 {
-    public class Produto
+    public class Produtos
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public float Value { get; set; }
 
 
-        public Produto(int id, string name, float value)
+        public Produtos(int id, string name, float value)
         {
             Id = id;
             Name = MinNameLength(name);
             Value = MinValue(value);
         }
 
-        public Produto(string name, float value)
+        public Produtos(string name, float value)
         {
             Name = MinNameLength(name);
             Value = MinValue(value);
         }
 
-        public Produto()
+        public Produtos()
         {
         }
 
