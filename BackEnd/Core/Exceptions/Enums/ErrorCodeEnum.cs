@@ -4,6 +4,8 @@ namespace Core.Exceptions.enums
     {
         PRO001,
         PRO002,
+
+        C0001,
     }
 
     public static class ErrorCodeExtensions
@@ -12,6 +14,9 @@ namespace Core.Exceptions.enums
         {
             { ErrorCodeEnum.PRO001, ("Minimo de caracteres são 3", "PRO-0001")},
             { ErrorCodeEnum.PRO002, ("valor não pode ser menor ao igual a zero", "PRO-0002")},
+
+
+            { ErrorCodeEnum.C0001, ("Email Invalido", "C-0001")},
         };
 
         public static string GetMessage(this ErrorCodeEnum errorCode)
