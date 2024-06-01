@@ -23,6 +23,13 @@ namespace Infrastructure.Mapper
              );
         }
 
+        public Produtos ToProdut(int id)
+        {
+            return new Produtos(
+             id
+             );
+        }
+
         public ProdutosEntity ToProdutEntity(Produtos produtos)
         {
             return new ProdutosEntity(

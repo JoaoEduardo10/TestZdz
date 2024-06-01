@@ -17,17 +17,29 @@ namespace Infrastructure.Entities
         public ProdutosEntity Produtos { get; set; }
 
         [Required]
+        public int Quantity {  get; set; }
+
+        [Required]
         public float Valor { get; set; }
 
         [Required]
         public DateTime CreatedAt { get; set; }
 
-        public PedidosEntity(ProdutosEntity produtos, float valor)
+        public PedidosEntity(ProdutosEntity produtos, float valor, int quantity)
         {
             Produtos = produtos;
             Valor = valor;
             ProdutoId = produtos.Id;
             CreatedAt = DateTime.UtcNow;
+            Quantity = quantity;
+        }
+
+        public PedidosEntity(int produtoId, float valor, int quantity)
+        {
+            Valor = valor;
+            ProdutoId = produtoId;
+            CreatedAt = DateTime.UtcNow;
+            Quantity = quantity;
         }
 
         public PedidosEntity()
