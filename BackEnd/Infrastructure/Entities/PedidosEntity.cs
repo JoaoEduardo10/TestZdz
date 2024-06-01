@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Entities
 {
+    [Table("pedidos")]
     public class PedidosEntity
     {
         [Key]
@@ -21,11 +22,16 @@ namespace Infrastructure.Entities
         [Required]
         public DateTime CreatedAt { get; set; }
 
-        public PedidosEntity(ProdutosEntity produtos, float valor, DateTime createdAt)
+        public PedidosEntity(ProdutosEntity produtos, float valor)
         {
             Produtos = produtos;
             Valor = valor;
-            CreatedAt = createdAt;
+            ProdutoId = produtos.Id;
+            CreatedAt = DateTime.UtcNow;
+        }
+
+        public PedidosEntity()
+        {
         }
     }
 }
