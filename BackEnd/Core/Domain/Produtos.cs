@@ -31,7 +31,7 @@ namespace Core.Domain
         {
             if (name.Length < 3)
             {
-                throw new ProdutoException(ErrorCodeEnum.PRO001.GetMessage(), ErrorCodeEnum.PRO001.GetCode());
+                throw new ProdutoException(ErrorCodeEnum.PRO0001.GetMessage(), ErrorCodeEnum.PRO0001.GetCode());
             }
 
             return name;
@@ -41,7 +41,7 @@ namespace Core.Domain
         {
             if (value <= 0)
             {
-                throw new ProdutoException(ErrorCodeEnum.PRO002.GetMessage(), ErrorCodeEnum.PRO002.GetCode());
+                throw new ProdutoException(ErrorCodeEnum.PRO0002.GetMessage(), ErrorCodeEnum.PRO0002.GetCode());
             }
 
             return value;
