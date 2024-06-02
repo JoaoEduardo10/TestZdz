@@ -10,13 +10,13 @@ namespace Infrastructure.Config
     {
         public static IServiceCollection ScopedConfig(this IServiceCollection services)
         {
-            services.AddScoped<ProdutsMapper>();
+            services.AddScoped<ProductMapper>();
             services.AddScoped<OrderMapper>();
 
-            services.AddScoped<ICreateProdutUseCase, CreateProdutUseCaseImpl>();
+            services.AddScoped<ICreateProductUseCase, CreateProductUseCaseImpl>();
             services.AddScoped<ICreateOrderUseCase, CreateOrderUseCaseImpl>();
 
-            services.AddScoped<ICreateProdutGateway, CreateProdutGatewayImpl>();
+            services.AddScoped<ICreateProductGateway, CreateProductGatewayImpl>();
             services.AddScoped<ICreateOrderGateway, CreateOrderGatewayImpl>();
 
             return services;

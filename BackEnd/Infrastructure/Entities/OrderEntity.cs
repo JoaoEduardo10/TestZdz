@@ -14,7 +14,7 @@ namespace Infrastructure.Entities
         public int ProdutoId { get; set; }
 
         [ForeignKey(nameof(ProdutoId))]
-        public ProdutosEntity Produtos { get; set; }
+        public ProductEntity Produtos { get; set; }
 
         [Required]
         public int Quantity {  get; set; }
@@ -25,7 +25,7 @@ namespace Infrastructure.Entities
         [Required]
         public DateTime CreatedAt { get; set; }
 
-        public OrderEntity(ProdutosEntity produtos, float valor, int quantity)
+        public OrderEntity(ProductEntity produtos, float valor, int quantity)
         {
             Produtos = produtos;
             Valor = valor;

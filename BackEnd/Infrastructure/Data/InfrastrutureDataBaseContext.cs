@@ -10,7 +10,7 @@ namespace Infrastructure.Data
         }
 
         public DbSet<OrderEntity> OrdersEntity { get; set; }
-        public DbSet<ProdutosEntity> ProdutosEntity { get; set; }
+        public DbSet<ProductEntity> ProductsEntity { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

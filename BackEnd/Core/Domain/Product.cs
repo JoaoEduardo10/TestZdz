@@ -3,32 +3,32 @@ using Core.Exceptions.enums;
 
 namespace Core.Domain
 {
-    public class Produtos
+    public class Product
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public float Value { get; set; }
 
 
-        public Produtos(int id, string name, float value)
+        public Product(int id, string name, float value)
         {
             Id = id;
             Name = MinNameLength(name);
             Value = MinValue(value);
         }
 
-        public Produtos(string name, float value)
+        public Product(string name, float value)
         {
             Name = MinNameLength(name);
             Value = MinValue(value);
         }
 
-        public Produtos(int id)
+        public Product(int id)
         {
             Id = id;
         }
 
-        public Produtos()
+        public Product()
         {
         }
 
@@ -36,7 +36,7 @@ namespace Core.Domain
         {
             if (name.Length < 3)
             {
-                throw new ProdutoException(ErrorCodeEnum.PRO0001.GetMessage(), ErrorCodeEnum.PRO0001.GetCode());
+                throw new ProductException(ErrorCodeEnum.PRO0001.GetMessage(), ErrorCodeEnum.PRO0001.GetCode());
             }
 
             return name;
@@ -46,7 +46,7 @@ namespace Core.Domain
         {
             if (value <= 0)
             {
-                throw new ProdutoException(ErrorCodeEnum.PRO0002.GetMessage(), ErrorCodeEnum.PRO0002.GetCode());
+                throw new ProductException(ErrorCodeEnum.PRO0002.GetMessage(), ErrorCodeEnum.PRO0002.GetCode());
             }
 
             return value;

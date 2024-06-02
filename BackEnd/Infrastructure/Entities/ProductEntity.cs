@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Infrastructure.Entities
 {
     [Table("produtos")]
-    public class ProdutosEntity
+    public class ProductEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -19,13 +19,13 @@ namespace Infrastructure.Entities
 
         public virtual List<OrderEntity> Pedidos { get; set; }
 
-        public ProdutosEntity(string name, float value)
+        public ProductEntity(string name, float value)
         {
             Name = name;
             Value = value;
         }
 
-        public ProdutosEntity()
+        public ProductEntity()
         {
         }
     }

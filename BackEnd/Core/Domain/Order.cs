@@ -6,24 +6,24 @@ namespace Core.Domain
     public class Order
     {
         public int Id { get; set; }
-        public Produtos Produto { get; set; }
+        public Product Product { get; set; }
         public int Quantity { get; set; }
         public float Valor { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
-        public Order(int id, Produtos produto, float valor, DateTime createdAt, int quantity)
+        public Order(int id, Product product, float valor, DateTime createdAt, int quantity)
         {
             Id = id;
-            Produto = produto;
+            Product = product;
             Valor = MinValue(valor);
             CreatedAt = createdAt;
             Quantity = quantity;
         }
 
-        public Order(Produtos produto, float valor, int quantity)
+        public Order(Product product, float valor, int quantity)
         {
-            Produto = produto;
+            Product = product;
             Valor = MinValue(valor);
             Quantity = quantity;
             CreatedAt = DateTime.UtcNow;
@@ -44,7 +44,7 @@ namespace Core.Domain
         {
             if (value <= 0)
             {
-                throw new ProdutoException(ErrorCodeEnum.PRO0002.GetMessage(), ErrorCodeEnum.PRO0002.GetCode());
+                throw new ProductException(ErrorCodeEnum.PRO0002.GetMessage(), ErrorCodeEnum.PRO0002.GetCode());
             }
 
             return value;

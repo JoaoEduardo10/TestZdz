@@ -6,14 +6,14 @@ namespace Infrastructure.Mapper
 {
     public class OrderMapper
     {
-        private readonly ProdutsMapper _ProdutsMapper;
+        private readonly ProductMapper _ProdutsMapper;
 
-        public OrderMapper(ProdutsMapper produtsMapper)
+        public OrderMapper(ProductMapper produtsMapper)
         {
             _ProdutsMapper = produtsMapper;
         }
 
-        public OrderEntity ToOrderEntity(Order order, ProdutosEntity produtos)
+        public OrderEntity ToOrderEntity(Order order, ProductEntity produtos)
         {
             return new OrderEntity(
                 produtos,

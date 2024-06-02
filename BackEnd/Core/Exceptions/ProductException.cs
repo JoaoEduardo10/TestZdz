@@ -1,10 +1,10 @@
 namespace Core.Exceptions
 {
-    public class ProdutoException : ApplicationException
+    public class ProductException : ApplicationException
     {
         public string Code { get; private set; }
 
-        public ProdutoException(string message, string code) : base(message)
+        public ProductException(string message, string code) : base(message)
         {
             Code = code;
         }

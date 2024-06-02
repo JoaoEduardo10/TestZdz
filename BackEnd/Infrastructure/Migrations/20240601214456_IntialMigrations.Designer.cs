@@ -49,7 +49,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("pedidos");
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.ProdutosEntity", b =>
+            modelBuilder.Entity("Infrastructure.Entities.ProductEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,7 +71,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Infrastructure.Entities.OrdersEntity", b =>
                 {
-                    b.HasOne("Infrastructure.Entities.ProdutosEntity", "Produtos")
+                    b.HasOne("Infrastructure.Entities.ProductEntity", "Produtos")
                         .WithMany("Pedidos")
                         .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -80,7 +80,7 @@ namespace Infrastructure.Migrations
                     b.Navigation("Produtos");
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.ProdutosEntity", b =>
+            modelBuilder.Entity("Infrastructure.Entities.ProductEntity", b =>
                 {
                     b.Navigation("Pedidos");
                 });
