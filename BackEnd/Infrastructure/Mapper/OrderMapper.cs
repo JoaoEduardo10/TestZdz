@@ -22,8 +22,32 @@ namespace Infrastructure.Mapper
             );
         }
 
+        public Order ToOrder(OrderEntity orderEntity)
+        {
+            return new Order(
+                orderEntity.Id,
+                _ProdutsMapper.ToProduct(orderEntity.Produtos),
+                orderEntity.Valor,
+                orderEntity.CreatedAt,
+                orderEntity.Quantity
 
-        public Order ToRequest(OrderRequestDto orderRequestDto)
+            );
+        }
+
+        public List<Order> ToOrder(List<OrderEntity> ordersEntities)
+        {
+            List<Order> orders = [];
+
+            foreach(OrderEntity orderEntity in ordersEntities)
+            {
+                orders.Add(ToOrder(orderEntity));
+            }
+
+            return orders;
+        }
+
+
+        public Order ToOrder(OrderRequestDto orderRequestDto)
         {
             return new Order(
                _ProdutsMapper.ToProdut(orderRequestDto.ProdutoId),
@@ -31,5 +55,7 @@ namespace Infrastructure.Mapper
                orderRequestDto.Quantity
              );
         }
+
+
     }
 }
