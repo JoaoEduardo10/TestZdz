@@ -6,6 +6,20 @@ namespace Infrastructure.Mapper
 {
     public class ProductMapper
     {
+        public List<Product> ToProduct(List<ProductEntity> productsEntity)
+        {
+            List<Product> products = [];
+
+            foreach(ProductEntity product in  productsEntity)
+            {
+                products.Add(
+                ToProduct(product)
+                );
+            }
+
+            return products;
+        }
+
         public Product ToProduct(ProductEntity ProductEntity)
         {
             return new Product(
