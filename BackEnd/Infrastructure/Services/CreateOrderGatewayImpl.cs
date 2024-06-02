@@ -27,10 +27,7 @@ namespace Infrastructure.Services
 
             float quantityProdutsValue = order.Quantity * produt.Value;
 
-            if(quantityProdutsValue != order.Valor)
-            {
-                throw new OrderException(ErrorCodeEnum.OR0003.GetMessage(), ErrorCodeEnum.OR0003.GetCode());
-            }
+            order.Valor = quantityProdutsValue;
 
             var orderSaved = _Context.OrdersEntity.Add(_OrderMapper.ToOrderEntity(order, produt));
 

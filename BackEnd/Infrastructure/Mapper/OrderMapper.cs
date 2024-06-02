@@ -51,7 +51,7 @@ namespace Infrastructure.Mapper
         {
             return new Order(
                _ProdutsMapper.ToProdut(orderRequestDto.ProdutoId),
-               orderRequestDto.Value,
+               1,
                orderRequestDto.Quantity
              );
         }
