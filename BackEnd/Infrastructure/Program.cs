@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors();
+
 builder.Services.ScopedConfig();
 
 builder.Configuration
@@ -21,6 +22,8 @@ builder.Configuration
 builder.Services.AddDbContext<InfrastrutureDataBaseContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresDataBase"))
 );
+
+
 
 var app = builder.Build();
 
