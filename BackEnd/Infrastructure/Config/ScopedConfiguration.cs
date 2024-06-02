@@ -17,11 +17,13 @@ namespace Infrastructure.Config
             services.AddScoped<ICreateOrderUseCase, CreateOrderUseCaseImpl>();
             services.AddScoped<IGetAllProductUseCase, GetAllProductsUseCseImpl>();
             services.AddScoped<IGetAllOrdersUseCase, GetAllOrdersUseCaseImpl>();
+            services.AddScoped<IGetOrderByIdUseCase, GetOrderByIdUseCaseImpl>();
 
             services.AddScoped<ICreateProductGateway, CreateProductGatewayImpl>();
             services.AddScoped<ICreateOrderGateway, CreateOrderGatewayImpl>();
             services.AddScoped<IGetAllProductsGateway, GetAllProductsGatewayImpl>();
             services.AddScoped<IGetAllOrdersGateway, GetAllOrdersGatewayImpl>();
+            services.AddScoped<IGetOrderByIdGateway, GetOrderByIdGatewayImpl>();
 
             return services;
         }

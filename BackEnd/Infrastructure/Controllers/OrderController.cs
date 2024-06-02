@@ -1,4 +1,5 @@
-﻿using Core.Domain;
+﻿using Application.Gateway;
+using Core.Domain;
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
 using Infrastructure.Mapper;
@@ -9,23 +10,24 @@ using UseCase.Interfaces;
 
 namespace Infrastructure.Controllers
 {
-    [Route("/api/v1/order")]
+    [Route("/api/v1/order/")]
     [ApiController]
     public class OrderController : ControllerBase
     {
 
         private readonly ICreateOrderUseCase _CreateOrderUseCase;
         private readonly IGetAllOrdersUseCase _GetAllOrdersUseCase;
-
+        private readonly IGetOrderByIdGateway _GetOrderByIdGateway;
 
         private readonly OrderMapper _OrderMapper;
 
 
-        public OrderController(ICreateOrderUseCase createOrderUseCase, OrderMapper orderMapper, IGetAllOrdersUseCase getAllOrdersUseCase)
+        public OrderController(ICreateOrderUseCase createOrderUseCase, OrderMapper orderMapper, IGetAllOrdersUseCase getAllOrdersUseCase, IGetOrderByIdGateway getOrderByIdGateway)
         {
             _CreateOrderUseCase = createOrderUseCase;
             _OrderMapper = orderMapper;
             _GetAllOrdersUseCase = getAllOrdersUseCase;
+            _GetOrderByIdGateway = getOrderByIdGateway;
         }
 
         [HttpGet]
@@ -37,6 +39,22 @@ namespace Infrastructure.Controllers
             {
                 Message = "Pedidos Listados com sucesso!",
                 Result = orders,
+                StatusCode = 200,
+                Success = true
+            };
+
+            return Ok(response);
+        }
+
+        [HttpGet("{orderId}")]
+        public async Task<ActionResult<BaseResponse<Order>>> GetById(int orderId)
+        {
+           Order order = await _GetOrderByIdGateway.GetOrderByIdAsync(orderId);
+
+            BaseResponse<Order> response = new BaseResponse<Order>
+            {
+                Message = "Pedido Encontrado com sucesso!",
+                Result = order,
                 StatusCode = 200,
                 Success = true
             };
