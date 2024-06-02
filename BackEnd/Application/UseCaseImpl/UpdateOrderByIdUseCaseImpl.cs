@@ -6,7 +6,7 @@ using UseCase.Interfaces;
 
 namespace Application.UseCaseImpl
 {
-    internal class UpdateOrderByIdUseCaseImpl : IUpdateOrderByIdUseCase
+    public class UpdateOrderByIdUseCaseImpl : IUpdateOrderByIdUseCase
     {
         private readonly IUpdateOrderByIdGateway _UpdateOrderByIdGateway;
 

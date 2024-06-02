@@ -18,12 +18,20 @@ namespace Infrastructure.Config
             services.AddScoped<IGetAllProductUseCase, GetAllProductsUseCseImpl>();
             services.AddScoped<IGetAllOrdersUseCase, GetAllOrdersUseCaseImpl>();
             services.AddScoped<IGetOrderByIdUseCase, GetOrderByIdUseCaseImpl>();
+            services.AddScoped<IUpdateOrderByIdUseCase, UpdateOrderByIdUseCaseImpl>();
+            services.AddScoped<IUpdateProductByIdUseCase, UpdateProductByIdUseCaseImpl>();
+            services.AddScoped<IDeleteOrderByIdUseCase, DeleteOrderByIdUseCaseImpl>();
+            services.AddScoped<IDeleteProductByIdUseCase, DeleteProductByIdUseCaseImpl>();
 
             services.AddScoped<ICreateProductGateway, CreateProductGatewayImpl>();
             services.AddScoped<ICreateOrderGateway, CreateOrderGatewayImpl>();
             services.AddScoped<IGetAllProductsGateway, GetAllProductsGatewayImpl>();
             services.AddScoped<IGetAllOrdersGateway, GetAllOrdersGatewayImpl>();
             services.AddScoped<IGetOrderByIdGateway, GetOrderByIdGatewayImpl>();
+            services.AddScoped<IUpdateOrderByIdGateway, UpdateOrderByIdGatewayImpl>();
+            services.AddScoped<IUpdateProductByIdGateway, UpdateProductByIdGatewayImpl>();
+            services.AddScoped<IDeleteOrderByIdGateway, DeleteOrderByIdGatewayImpl>();
+            services.AddScoped<IDeleteProductByIdGateway, DeleteProductByIdGatewayImpl>();
 
             return services;
         }
