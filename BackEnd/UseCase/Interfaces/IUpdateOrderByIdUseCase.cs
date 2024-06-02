@@ -1,7 +1,9 @@
-﻿namespace UseCase.Interfaces
+﻿using Core.Domain;
+
+namespace UseCase.Interfaces
 {
     public interface IUpdateOrderByIdUseCase
     {
-        Task UpdateOrderAsync(int orderId);
+        Task UpdateOrderAsync(int orderId, Order order);
     }
 }

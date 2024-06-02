@@ -1,7 +1,9 @@
-﻿namespace UseCase.Interfaces
+﻿using Core.Domain;
+
+namespace UseCase.Interfaces
 {
     public interface IUpdateProductByIdUseCase
     {
-        Task UpdateProductAsync(int productId);
+        Task UpdateProductAsync(int productId, Product product);
     }
 }
