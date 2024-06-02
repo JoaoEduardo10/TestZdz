@@ -7,9 +7,9 @@ namespace Core.Exceptions.enums
         PRO0003,
         PRO0004,
 
-        PEO0001,
-        PEO0002,
-        PEO0003,
+        OR0001,
+        OR0002,
+        OR0003,
     }
 
     public static class ErrorCodeExtensions
@@ -21,9 +21,9 @@ namespace Core.Exceptions.enums
             { ErrorCodeEnum.PRO0003, ("Não foi possivel cria o produto", "PRO-0003")},
              { ErrorCodeEnum.PRO0004, ("Produto não encontrado", "PRO-0004")},
 
-            { ErrorCodeEnum.PEO0001, ("Não foi possivel criar o pedido", "PE-0001")},
-            { ErrorCodeEnum.PEO0002, ("Pedido não encontrado", "PE-0002")},
-            { ErrorCodeEnum.PEO0003, ("O valor total do pedido esta errado", "PE-0003")},
+            { ErrorCodeEnum.OR0001, ("Não foi possivel criar o pedido", "OR-0001")},
+            { ErrorCodeEnum.OR0002, ("Pedido não encontrado", "OR-0002")},
+            { ErrorCodeEnum.OR0003, ("O valor total do pedido esta errado", "OR-0003")},
         };
 
         public static string GetMessage(this ErrorCodeEnum errorCode)

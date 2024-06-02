@@ -25,7 +25,7 @@ namespace Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Infrastructure.Entities.PedidosEntity", b =>
+            modelBuilder.Entity("Infrastructure.Entities.OrdersEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,7 +69,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("produtos");
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.PedidosEntity", b =>
+            modelBuilder.Entity("Infrastructure.Entities.OrdersEntity", b =>
                 {
                     b.HasOne("Infrastructure.Entities.ProdutosEntity", "Produtos")
                         .WithMany("Pedidos")

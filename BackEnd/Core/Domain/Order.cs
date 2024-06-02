@@ -3,17 +3,16 @@ using Core.Exceptions;
 
 namespace Core.Domain
 {
-    public class Pedidos
+    public class Order
     {
         public int Id { get; set; }
         public Produtos Produto { get; set; }
-
         public int Quantity { get; set; }
         public float Valor { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
-        public Pedidos(int id, Produtos produto, float valor, DateTime createdAt, int quantity)
+        public Order(int id, Produtos produto, float valor, DateTime createdAt, int quantity)
         {
             Id = id;
             Produto = produto;
@@ -22,7 +21,7 @@ namespace Core.Domain
             Quantity = quantity;
         }
 
-        public Pedidos(Produtos produto, float valor, int quantity)
+        public Order(Produtos produto, float valor, int quantity)
         {
             Produto = produto;
             Valor = MinValue(valor);
@@ -30,14 +29,14 @@ namespace Core.Domain
             CreatedAt = DateTime.UtcNow;
         }
 
-        public Pedidos(float valor, int quantity)
+        public Order(float valor, int quantity)
         {
             Valor = valor;
             Quantity = quantity;
             CreatedAt = DateTime.UtcNow;
         }
 
-        public Pedidos()
+        public Order()
         {
         }
 

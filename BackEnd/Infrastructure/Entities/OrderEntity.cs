@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Infrastructure.Entities
 {
     [Table("pedidos")]
-    public class PedidosEntity
+    public class OrderEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -25,7 +25,7 @@ namespace Infrastructure.Entities
         [Required]
         public DateTime CreatedAt { get; set; }
 
-        public PedidosEntity(ProdutosEntity produtos, float valor, int quantity)
+        public OrderEntity(ProdutosEntity produtos, float valor, int quantity)
         {
             Produtos = produtos;
             Valor = valor;
@@ -34,7 +34,7 @@ namespace Infrastructure.Entities
             Quantity = quantity;
         }
 
-        public PedidosEntity(int produtoId, float valor, int quantity)
+        public OrderEntity(int produtoId, float valor, int quantity)
         {
             Valor = valor;
             ProdutoId = produtoId;
@@ -42,7 +42,7 @@ namespace Infrastructure.Entities
             Quantity = quantity;
         }
 
-        public PedidosEntity()
+        public OrderEntity()
         {
         }
     }

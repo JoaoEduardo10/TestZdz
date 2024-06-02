@@ -1,10 +1,10 @@
 ﻿namespace Core.Exceptions
 {
-    public class PedidosException : ApplicationException
+    public class OrderException : ApplicationException
     {
         public string Code { get; private set; }
 
-        public PedidosException(string message, string code) : base(message)
+        public OrderException(string message, string code) : base(message)
         {
             Code = code;
         }
