@@ -12,6 +12,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 builder.Services.ScopedConfig();
 
+builder.Configuration
+    .SetBasePath(AppContext.BaseDirectory)
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
+
 builder.Services.AddDbContext<InfrastrutureDataBaseContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresDataBase"))
 );
