@@ -27,13 +27,13 @@ namespace Infrastructure.Services
 
             foreach (var order in ordersList)
             {
-                ProductEntity? produto = await _Context.ProductsEntity.FirstOrDefaultAsync(P => P.Id == order.Id);
+                ProductEntity? produto = await _Context.ProductsEntity.FirstOrDefaultAsync(P => P.Id == order.ProdutoId);
 
                 orders.Add(new OrderEntity
                 {
                     Id = order.Id,
                     ProdutoId = order.ProdutoId,
-                    Produtos = produto,
+                    Produtos = produto ,
                     Quantity = order.Quantity,
                     Valor = order.Valor,
                     CreatedAt = order.CreatedAt

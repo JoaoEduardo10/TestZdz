@@ -5,11 +5,17 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("corspolicy", build => 
+    build.AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowAnyOrigin());
+});
+
+builder.Services.AddControllers();
 
 builder.Services.ScopedConfig();
 
@@ -30,13 +36,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseCors(cors =>
-{
-    cors.AllowAnyOrigin();
-    cors.AllowAnyHeader();
-    cors.AllowAnyMethod();
-}
-);
+app.UseCors("corspolicy");
 
 using (var scope = app.Services.CreateScope())
 {
