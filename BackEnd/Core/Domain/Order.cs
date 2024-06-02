@@ -44,7 +44,7 @@ namespace Core.Domain
         {
             if (value <= 0)
             {
-                throw new ProductException(ErrorCodeEnum.PRO0002.GetMessage(), ErrorCodeEnum.PRO0002.GetCode());
+                throw new OrderException(ErrorCodeEnum.PRO0002.GetMessage(), ErrorCodeEnum.PRO0002.GetCode());
             }
 
             return value;

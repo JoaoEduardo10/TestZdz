@@ -23,7 +23,7 @@ namespace Infrastructure.Services
 
         public async Task<bool> CreateOrderAsync(Order order)
         {
-            ProductEntity? produt = await _Context.ProductsEntity.FirstOrDefaultAsync(p => p.Id == order.Product.Id) ?? throw new ProductException(ErrorCodeEnum.PRO0004.GetMessage(), ErrorCodeEnum.PRO0004.GetCode());
+            ProductEntity? produt = await _Context.ProductsEntity.FirstOrDefaultAsync(p => p.Id == order.Product.Id) ?? throw new OrderException(ErrorCodeEnum.PRO0004.GetMessage(), ErrorCodeEnum.PRO0004.GetCode());
 
             float quantityProdutsValue = order.Quantity * produt.Value;
 

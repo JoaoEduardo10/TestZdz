@@ -1,5 +1,6 @@
 using Infrastructure.Config;
 using Infrastructure.Data;
+using Infrastructure.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +32,9 @@ app.UseCors(cors =>
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware(typeof(OrderErrorHandlingMiddleware));
+app.UseMiddleware(typeof(ProductErrorHandlingMiddleware));
 
 app.MapControllers();
 

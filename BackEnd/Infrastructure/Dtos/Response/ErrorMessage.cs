@@ -5,7 +5,7 @@
         public string Code { get; set; }
         public string Message { get; set; }
 
-        public ErrorMessage(string code, string message)
+        public ErrorMessage( string message, string code)
         {
             Code = code;
             Message = message;
