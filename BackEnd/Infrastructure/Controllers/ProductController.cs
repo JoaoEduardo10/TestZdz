@@ -13,14 +13,18 @@ namespace Infrastructure.Controllers
     {
         private readonly ICreateProductUseCase _CreateProductUseCase;
         private readonly IGetAllProductUseCase _GetAllProductUseCase;
+        private readonly IUpdateProductByIdUseCase _UpdateProductByIdUseCase;
+        private readonly IDeleteProductByIdUseCase _DeleteProductByIdUseCas;
 
         private readonly ProductMapper _ProdutsMapper;
 
-        public ProductController(ICreateProductUseCase createProductUseCase, ProductMapper productMapper, IGetAllProductUseCase getAllProductUseCase)
+        public ProductController(ICreateProductUseCase createProductUseCase, ProductMapper productMapper, IGetAllProductUseCase getAllProductUseCase, IDeleteProductByIdUseCase deleteProductByIdUseCas, IUpdateProductByIdUseCase updateProductByIdUseCase)
         {
             _CreateProductUseCase = createProductUseCase;
             _ProdutsMapper = productMapper;
             _GetAllProductUseCase = getAllProductUseCase;
+            _DeleteProductByIdUseCas = deleteProductByIdUseCas;
+            _UpdateProductByIdUseCase = updateProductByIdUseCase;
         }
 
         [HttpGet]
@@ -45,6 +49,22 @@ namespace Infrastructure.Controllers
             await _CreateProductUseCase.CreateProductAsync(_ProdutsMapper.ToProdut(productRequestDto));
 
             return Created();
+        }
+
+        [HttpPut("{productId}")]
+        public async Task<ActionResult> Update(int productId, [FromBody] ProductRequestDto productRequestDto)
+        {
+            await _UpdateProductByIdUseCase.UpdateProductAsync(productId,_ProdutsMapper.ToProdut(productRequestDto));
+
+            return NoContent();
+        }
+
+        [HttpDelete("{productId}")]
+        public async Task<ActionResult> Delete(int productId)
+        {
+            await _DeleteProductByIdUseCas.DeleteProductAsync(productId);
+
+            return NoContent();
         }
     }
 }

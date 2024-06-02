@@ -25,7 +25,7 @@ namespace Infrastructure.Services
             }
 
             productEntity.Value = product.Value;
-            product.Name = productEntity.Name;
+            productEntity.Name = product.Name; 
 
             await _Context.SaveChangesAsync();
 

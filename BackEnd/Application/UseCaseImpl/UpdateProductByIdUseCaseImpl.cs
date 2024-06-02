@@ -21,7 +21,7 @@ namespace Application.UseCaseImpl
         {
             bool isNewProductSaved = await _UpdateProductByIdGateway.UpdateProductAsync(productId, product);
 
-            if(isNewProductSaved)
+            if(!isNewProductSaved)
             {
                 throw new ProductException(ErrorCodeEnum.PRO0004.GetMessage(), ErrorCodeEnum.PRO0004.GetMessage());
             }

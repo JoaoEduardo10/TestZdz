@@ -18,10 +18,16 @@ namespace Infrastructure.Services
         {
             ProductEntity? product = await _Context.ProductsEntity.FirstOrDefaultAsync(p => p.Id == productId);
 
-
             if(product == null)
             {
                 return false;
+            }
+
+            List<OrderEntity> order = await _Context.OrdersEntity.Where(o => o.ProdutoId == product.Id).ToListAsync();
+
+            foreach(OrderEntity orderEntity in order)
+            {
+                _Context.OrdersEntity.Remove(orderEntity);
             }
 
             _Context.ProductsEntity.Remove(product);

@@ -1,12 +1,9 @@
-﻿using Application.Gateway;
-using Core.Domain;
+﻿using Core.Domain;
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
 using Infrastructure.Mapper;
 using Microsoft.AspNetCore.Mvc;
 using UseCase.Interfaces;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Infrastructure.Controllers
 {
@@ -17,17 +14,21 @@ namespace Infrastructure.Controllers
 
         private readonly ICreateOrderUseCase _CreateOrderUseCase;
         private readonly IGetAllOrdersUseCase _GetAllOrdersUseCase;
-        private readonly IGetOrderByIdGateway _GetOrderByIdGateway;
+        private readonly IGetOrderByIdUseCase _GetOrderByIdUseCase;
+        private readonly IUpdateOrderByIdUseCase _UpdateOrderByIdUseCase;
+        private readonly IDeleteOrderByIdUseCase _DeleteOrderByIdUseCase;
 
         private readonly OrderMapper _OrderMapper;
 
 
-        public OrderController(ICreateOrderUseCase createOrderUseCase, OrderMapper orderMapper, IGetAllOrdersUseCase getAllOrdersUseCase, IGetOrderByIdGateway getOrderByIdGateway)
+        public OrderController(ICreateOrderUseCase createOrderUseCase, OrderMapper orderMapper, IGetAllOrdersUseCase getAllOrdersUseCase, IGetOrderByIdUseCase getOrderByIdUseCase, IUpdateOrderByIdUseCase updateOrderByIdUseCase, IDeleteOrderByIdUseCase deleteOrderByIdUseCase)
         {
             _CreateOrderUseCase = createOrderUseCase;
             _OrderMapper = orderMapper;
             _GetAllOrdersUseCase = getAllOrdersUseCase;
-            _GetOrderByIdGateway = getOrderByIdGateway;
+            _GetOrderByIdUseCase = getOrderByIdUseCase;
+            _UpdateOrderByIdUseCase = updateOrderByIdUseCase;
+            _DeleteOrderByIdUseCase = deleteOrderByIdUseCase;
         }
 
         [HttpGet]
@@ -49,7 +50,7 @@ namespace Infrastructure.Controllers
         [HttpGet("{orderId}")]
         public async Task<ActionResult<BaseResponse<Order>>> GetById(int orderId)
         {
-           Order order = await _GetOrderByIdGateway.GetOrderByIdAsync(orderId);
+           Order order = await _GetOrderByIdUseCase.GetOrderByIdAsync(orderId);
 
             BaseResponse<Order> response = new BaseResponse<Order>
             {
@@ -66,11 +67,30 @@ namespace Infrastructure.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] OrderRequestDto orderRequestDtos)
         {
-            Order pedido = _OrderMapper.ToOrder(orderRequestDtos);
+            Order order = _OrderMapper.ToOrder(orderRequestDtos);
 
-            await _CreateOrderUseCase.CreateOrdertAsync(pedido);
+            await _CreateOrderUseCase.CreateOrdertAsync(order);
 
             return Created();
+        }
+
+        [HttpPut("{orderId}")]
+        public async Task<ActionResult> Update(int orderId, [FromBody] OrderRequestDto orderRequestDto)
+        {
+            Order order = _OrderMapper.ToOrder(orderRequestDto);
+
+            await _UpdateOrderByIdUseCase.UpdateOrderAsync(orderId, order);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{orderId}")]
+        public async Task<ActionResult> Delete(int orderId)
+        {
+
+            await _DeleteOrderByIdUseCase.DeleteOrderAsync(orderId);
+
+            return NoContent();
         }
     }
 }
