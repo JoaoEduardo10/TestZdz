@@ -9,6 +9,7 @@
               <v-data-table
                 :items="formattedOrders"
                 :headers="headers"
+                :items-per-page="5"
               ></v-data-table>
             </v-card>
           </v-flex>
@@ -20,6 +21,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, computed } from "vue";
+import { ApiResponse } from "~/interfaces/apiResponse";
 
 export default defineComponent({
   name: "OrderList",
@@ -36,15 +38,15 @@ export default defineComponent({
     const fetchOrders = async () => {
       try {
         const response = await fetch("http://localhost:5042/api/v1/order");
-        const data = await response.json();
+
+        const data: ApiResponse<any> = await response.json();
+
         if (data.success) {
           orders.value = data.result;
         } else {
-          console.error("Erro ao buscar pedidos:", data.message);
           alert(`Erro: ${data.message}`);
         }
       } catch (error) {
-        console.error("Erro ao buscar pedidos:", error);
         alert("Erro ao buscar pedidos. Por favor, tente novamente mais tarde.");
       }
     };

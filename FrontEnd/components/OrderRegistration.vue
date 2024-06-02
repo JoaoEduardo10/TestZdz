@@ -6,7 +6,7 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
-                <v-toolbar-title>Adicionar uma entrega</v-toolbar-title>
+                <v-toolbar-title>Adicionar um pedido</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
                 <v-form ref="form">
@@ -41,6 +41,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
 import { ApiResponse } from "~/interfaces/apiResponse";
+import { ApiResponseError } from "~/interfaces/apiResponseError";
 import { Product } from "~/interfaces/product";
 
 export default defineComponent({
@@ -101,9 +102,9 @@ export default defineComponent({
           return;
         }
 
-        const data: ApiResponse<null> = await response.json();
+        const data: ApiResponseError<null> = await response.json();
 
-        alert(`Error: ${data.errorMessage.message}`);
+        alert(`Error: ${data.ErrorMessage.Message}`);
       } catch (error: any) {
         console.error("Erro ao criar ordem:", error.Message);
         alert("Erro ao criar ordem. Por favor, tente novamente mais tarde.");

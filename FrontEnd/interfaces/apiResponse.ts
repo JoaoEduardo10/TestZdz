@@ -3,7 +3,7 @@ export interface ApiResponse<T> {
   result: T;
   message: string;
   errorMessage: {
-    code: string;
-    message: string;
+    Code: string;
+    Message: string;
   };
 }

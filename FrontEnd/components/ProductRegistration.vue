@@ -40,6 +40,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { ApiResponseError } from "~/interfaces/apiResponseError";
 
 export default defineComponent({
   name: "ProductRegistration",
@@ -56,40 +57,31 @@ export default defineComponent({
   },
   methods: {
     async submitForm() {
-      console.log(this.product);
-
       try {
         const response = await fetch("http://localhost:5042/api/v1/product", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(this.product),
+          body: JSON.stringify({
+            name: this.product.name,
+            value: Number(this.product.value),
+          }),
         });
 
-        if (response.ok) {
-          if (response.status === 204) {
-            alert("Produto cadastrado com sucesso!");
-            this.product.name = "";
-            this.product.value = "";
-          } else {
-            const data = await response.json();
-            console.log(data);
-          }
-        } else {
-          const errorData = await response.json();
-          console.error(errorData);
-          alert(`Erro: ${errorData.message}`);
+        if (response.status == 204) {
+          alert("Produto ctiado com sucesso!");
+          return;
         }
-      } catch (error) {
-        console.error("Erro ao cadastrar produto:", error);
-        alert(
-          "Erro ao cadastrar produto. Por favor, tente novamente mais tarde."
-        );
+
+        const data: ApiResponseError<null> = await response.json();
+
+        alert(`Error: ${data.ErrorMessage.Message}`);
+      } catch (error: any) {
+        console.log(error);
+        return;
       }
     },
   },
 });
 </script>
-
-<style></style>
