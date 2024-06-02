@@ -20,7 +20,7 @@ namespace Application.UseCaseImpl
 
             if(!isProductDeleted)
             {
-                throw new ProductException(ErrorCodeEnum.PRO0006.GetMessage(), ErrorCodeEnum.PRO0006.GetMessage());
+                throw new ProductException(ErrorCodeEnum.PRO0004.GetMessage(), ErrorCodeEnum.PRO0004.GetMessage());
             }
         }
     }

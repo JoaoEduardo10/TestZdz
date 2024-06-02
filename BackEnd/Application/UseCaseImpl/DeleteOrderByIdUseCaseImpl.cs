@@ -21,7 +21,7 @@ namespace Application.UseCaseImpl
 
             if (!isOrderDeleted)
             {
-                throw new OrderException(ErrorCodeEnum.OR0001.GetMessage(), ErrorCodeEnum.OR0004.GetCode());
+                throw new OrderException(ErrorCodeEnum.OR0002.GetMessage(), ErrorCodeEnum.OR0002.GetCode());
             }
         }
     }

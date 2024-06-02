@@ -21,10 +21,8 @@ namespace Application.UseCaseImpl
 
             if(!orderSaved)
             {
-                throw new OrderException(ErrorCodeEnum.OR0002.GetMessage(), ErrorCodeEnum.OR0003.GetCode());
+                throw new OrderException(ErrorCodeEnum.OR0002.GetMessage(), ErrorCodeEnum.OR0002.GetCode());
             }
-
-            throw new NotImplementedException();
         }
     }
 }

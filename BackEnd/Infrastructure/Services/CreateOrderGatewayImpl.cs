@@ -33,12 +33,11 @@ namespace Infrastructure.Services
 
             await _Context.SaveChangesAsync();
 
-            
-
             if (orderSaved == null)
             {
                 return false;
             }
+
             return true;
         }
     }

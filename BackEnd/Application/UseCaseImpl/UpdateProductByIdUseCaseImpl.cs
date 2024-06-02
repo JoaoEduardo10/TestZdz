@@ -23,7 +23,7 @@ namespace Application.UseCaseImpl
 
             if(isNewProductSaved)
             {
-                throw new ProductException(ErrorCodeEnum.PRO0005.GetMessage(), ErrorCodeEnum.PRO0005.GetMessage());
+                throw new ProductException(ErrorCodeEnum.PRO0004.GetMessage(), ErrorCodeEnum.PRO0004.GetMessage());
             }
         }
     }
