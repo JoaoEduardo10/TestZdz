@@ -6,7 +6,7 @@ using UseCase.Interfaces;
 
 namespace Application.UseCaseImpl
 {
-    internal class GetOrderByIdUseCaseImpl : IGetOrderByIdUseCase
+    public class GetOrderByIdUseCaseImpl : IGetOrderByIdUseCase
     {
         private readonly IGetOrderByIdGateway _GetOrderByIdGateway;
 
