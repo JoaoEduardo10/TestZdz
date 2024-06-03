@@ -1,11 +1,14 @@
 <template>
-  <v-container width="100%">
-    <ProductRegistration />
-  </v-container>
+  <Product :isEditing="isEditing" />
 </template>
 
 <script>
 export default {
   name: "ProductPage",
+  data() {
+    return {
+      isEditing: false,
+    };
+  },
 };
 </script>
