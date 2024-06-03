@@ -11,12 +11,20 @@ services:
       - "5432:5432"
   back-end:
     build:
-        context: ./BackEnd
-        dockerfile: Dockerfile
+      context: ./BackEnd
+      dockerfile: Dockerfile
     ports:
-        - "5042:8080"
+      - "5042:8080"
     depends_on:
-        - db-postgres-server
+      - db-postgres-server
     command: sh -c "sleep 2 && dotnet Infrastructure.dll"
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
+  front-end:
+    build:
+      context: ./FrontEnd
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - back-end

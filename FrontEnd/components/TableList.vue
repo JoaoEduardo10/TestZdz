@@ -40,7 +40,7 @@ export default defineComponent({
   },
   data() {
     return {
-      items: [] as Product[],
+      items: [] as any[],
       headers: [
         { text: "Nome", value: "name" },
         { text: "Valor", value: "valueFormatted" },
@@ -50,7 +50,7 @@ export default defineComponent({
     };
   },
   computed: {
-    formattedItems() {
+    formattedItems(): any[] {
       if (this.itemType == "order") {
         return this.items.map((order: any) => ({
           ...order,
