@@ -6,21 +6,31 @@ namespace Infrastructure.Mapper
 {
     public class ProductMapper
     {
-        public List<Product> ToProduct(List<ProductEntity> productsEntity)
+        public List<Product> ToProductEntityListFromProductList(List<ProductEntity> productsEntity)
         {
             List<Product> products = [];
 
             foreach(ProductEntity product in  productsEntity)
             {
                 products.Add(
-                ToProduct(product)
+                ToProductEntityFromProduct(product)
                 );
             }
 
             return products;
         }
 
-        public Product ToProduct(ProductEntity ProductEntity)
+        
+
+        public Product ToProductRequestDtoFromProduct(ProductRequestDto productEntity)
+        {
+            return new Product(
+             productEntity.Name,
+             productEntity.Value
+             );
+        }
+
+        public Product ToProductEntityFromProduct(ProductEntity ProductEntity)
         {
             return new Product(
              ProductEntity.Id,
@@ -29,22 +39,14 @@ namespace Infrastructure.Mapper
              );
         }
 
-        public Product ToProdut(ProductRequestDto productEntity)
-        {
-            return new Product(
-             productEntity.Name,
-             productEntity.Value
-             );
-        }
-
-        public Product ToProdut(int id)
+        public Product AddIdFromProduct(int id)
         {
             return new Product(
              id
              );
         }
 
-        public ProductEntity ToProdutEntity(Product product)
+        public ProductEntity ToProductFromProductEntity(Product product)
         {
             return new ProductEntity(
              product.Name,

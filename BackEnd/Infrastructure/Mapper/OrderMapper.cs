@@ -13,7 +13,7 @@ namespace Infrastructure.Mapper
             _ProdutsMapper = produtsMapper;
         }
 
-        public OrderEntity ToOrderEntity(Order order, ProductEntity produtos)
+        public OrderEntity ToOrderFromOrderEntity(Order order, ProductEntity produtos)
         {
             return new OrderEntity(
                 produtos,
@@ -22,11 +22,11 @@ namespace Infrastructure.Mapper
             );
         }
 
-        public Order ToOrder(OrderEntity orderEntity)
+        public Order ToOrderEntityFromOrder(OrderEntity orderEntity)
         {
             return new Order(
                 orderEntity.Id,
-                _ProdutsMapper.ToProduct(orderEntity.Produtos),
+                _ProdutsMapper.ToProductEntityFromProduct(orderEntity.Produtos),
                 orderEntity.Valor,
                 orderEntity.CreatedAt,
                 orderEntity.Quantity
@@ -34,23 +34,23 @@ namespace Infrastructure.Mapper
             );
         }
 
-        public List<Order> ToOrder(List<OrderEntity> ordersEntities)
+        public List<Order> ToOrderEntityListFromOrdeList(List<OrderEntity> ordersEntities)
         {
             List<Order> orders = [];
 
             foreach(OrderEntity orderEntity in ordersEntities)
             {
-                orders.Add(ToOrder(orderEntity));
+                orders.Add(ToOrderEntityFromOrder(orderEntity));
             }
 
             return orders;
         }
 
 
-        public Order ToOrder(OrderRequestDto orderRequestDto)
+        public Order ToOrderRequestFtoFromOrder(OrderRequestDto orderRequestDto)
         {
             return new Order(
-               _ProdutsMapper.ToProdut(orderRequestDto.ProdutoId),
+               _ProdutsMapper.AddIdFromProduct(orderRequestDto.ProdutoId),
                1,
                orderRequestDto.Quantity
              );
