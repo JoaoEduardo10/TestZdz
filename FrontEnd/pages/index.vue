@@ -1,5 +1,5 @@
 <template>
-  <OrderRegistration />
+  <Order :isEditing="false" />
 </template>
 
 <script>
