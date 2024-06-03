@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-main id="inspire">
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -38,22 +38,19 @@
         </v-layout>
       </v-container>
     </v-content>
-  </v-app>
+  </v-main>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, ref, onMounted } from "vue";
-import { ApiResponse } from "~/interfaces/apiResponse";
-import { ApiResponseError } from "~/interfaces/apiResponseError";
-import { Product } from "~/interfaces/product";
 
 export default defineComponent({
   name: "OrderEdit",
   setup() {
-    const Id = ref<number | null>(null);
-    const selectedProduct = ref<number>(0);
-    const quantity = ref<number>(0);
-    const products = ref<Product[]>([]);
+    const Id = ref(null);
+    const selectedProduct = ref(0);
+    const quantity = ref(0);
+    const products = ref([]);
 
     const fetchOrder = async () => {
       try {
@@ -63,7 +60,7 @@ export default defineComponent({
           `http://localhost:5042/api/v1/order/${Id.value}`
         );
 
-        const data: ApiResponse<any> = await response.json();
+        const data = await response.json();
 
         if (data.success) {
           const order = data.result;
@@ -81,7 +78,7 @@ export default defineComponent({
       try {
         const response = await fetch("http://localhost:5042/api/v1/product");
 
-        const data: ApiResponse<Product[]> = await response.json();
+        const data = await response.json();
 
         if (data.success) {
           products.value = data.result;
@@ -89,7 +86,7 @@ export default defineComponent({
           console.error("Erro ao buscar produtos:", data.message);
         }
       } catch (error) {
-        console.error("Erro ao buscar produtos:", error);
+        console.error("Erro ao buscar produtos:", error.message);
       }
     };
 
@@ -121,10 +118,10 @@ export default defineComponent({
           return;
         }
 
-        const data: ApiResponseError<null> = await response.json();
+        const data = await response.json();
         alert(`Erro ao atualizar pedido: ${data.ErrorMessage.Message}`);
         return;
-      } catch (error: any) {
+      } catch (error) {
         console.error("Erro ao atualizar pedido:", error.Message);
         alert(
           "Erro ao atualizar pedido. Por favor, tente novamente mais tarde."

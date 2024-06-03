@@ -6,7 +6,7 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
-                <v-toolbar-title>Editar Pedido</v-toolbar-title>
+                <v-toolbar-title>Adicionar uma entrega</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
                 <v-form ref="form">
@@ -28,7 +28,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="updateOrder">Salvar</v-btn>
+                <v-btn color="primary" @click="submitOrder">Cadastrar</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -41,38 +41,16 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
 import { ApiResponse } from "~/interfaces/apiResponse";
-import { ApiResponseError } from "~/interfaces/apiResponseError";
 import { Product } from "~/interfaces/product";
 
 export default defineComponent({
-  name: "OrderEdit",
+  name: "OrderRegistration",
   setup() {
-    const selectedProductId = ref<number | null>(null);
-    const quantity = ref<number>(0);
     const products = ref<Product[]>([]);
+    const selectedProduct = ref<number | null>(null);
+    const quantity = ref<number>(0);
 
-    const fetchOrder = async () => {
-      try {
-        selectedProductId.value = parseInt($nuxt.$route.params.id);
-
-        const response = await fetch(
-          `http://localhost:5042/api/v1/order/${selectedProductId.value}`
-        );
-
-        const data: ApiResponse<any> = await response.json();
-
-        if (data.success) {
-          const order = data.result;
-          quantity.value = order.quantity;
-        } else {
-          console.error("Erro ao buscar pedido:", data.message);
-        }
-      } catch (error) {
-        console.error("Erro ao buscar pedido:", error);
-      }
-    };
-
-    const fetchProducts = async () => {
+    onMounted(async () => {
       try {
         const response = await fetch("http://localhost:5042/api/v1/product");
 
@@ -86,65 +64,57 @@ export default defineComponent({
       } catch (error) {
         console.error("Erro ao buscar produtos:", error);
       }
-    };
+    });
 
-    const updateOrder = async () => {
-      if (!selectedProductId.value || quantity.value <= 0) {
+    const submitOrder = async () => {
+      if (selectedProduct.value && quantity.value < 0) {
         alert("Selecione um produto e insira uma quantidade válida.");
         return;
       }
 
       const product = products.value.find(
-        (p) => p.id === selectedProductId.value
+        (p) => p.id === selectedProduct.value
       );
 
       if (!product) {
-        alert("Produto não encontrado na lista de produtos.");
+        alert("Produto não encontrado.");
         return;
       }
 
       const orderData = {
-        productId: selectedProductId.value,
+        produtoId: selectedProduct.value,
         quantity: quantity.value,
+        value: product.value * quantity.value,
       };
 
       try {
-        const response = await fetch(
-          `http://localhost:5042/api/v1/order/${selectedProductId.value}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(orderData),
-          }
-        );
+        const response = await fetch("http://localhost:5042/api/v1/order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderData),
+        });
 
-        if (response.ok) {
-          alert("Pedido atualizado com sucesso!");
-          // Redirecionar ou realizar outra ação após a atualização
-        } else {
-          const data: ApiResponseError<null> = await response.json();
-          alert(`Erro ao atualizar pedido: ${data.ErrorMessage.Message}`);
+        if (response.status == 204) {
+          alert("Pedido Registrado com sucesso!");
+          return;
         }
+
+        const data: ApiResponse<null> = await response.json();
+
+        alert(`Error: ${data.errorMessage.Message}`);
       } catch (error: any) {
-        console.error("Erro ao atualizar pedido:", error.Message);
-        alert(
-          "Erro ao atualizar pedido. Por favor, tente novamente mais tarde."
-        );
+        console.error("Erro ao criar ordem:", error.Message);
+        alert("Erro ao criar ordem. Por favor, tente novamente mais tarde.");
       }
     };
 
-    onMounted(() => {
-      fetchProducts();
-      fetchOrder();
-    });
-
     return {
-      selectedProductId,
-      quantity,
       products,
-      updateOrder,
+      selectedProduct,
+      quantity,
+      submitOrder,
     };
   },
 });

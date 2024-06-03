@@ -11,8 +11,10 @@
               :items-per-page="5"
             >
               <template v-slot:item.edit="{ item }">
-                <v-btn class="blue" icon @click="editProduct(item)">
-                  <v-icon>mdi-pencil</v-icon>
+                <v-btn class="blue" icon>
+                  <NuxtLink :to="`produto/${item.id}`" class="white--text">
+                    <v-icon>mdi-pencil</v-icon>
+                  </NuxtLink>
                 </v-btn>
               </template>
               <template v-slot:item.delete="{ item }">
