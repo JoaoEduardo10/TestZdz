@@ -3,7 +3,10 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
-# dotenv files
+.nuxt
+
+node_modules
+
 .env
 
 # User-specific files

@@ -1,33 +1,35 @@
 <template>
-  <v-content>
-    <v-container fluid fill-height>
-      <v-layout align-center justify-center>
-        <v-flex xs12>
-          <v-card class="elevation-12">
-            <v-card-title>Lista de Pedidos</v-card-title>
-            <v-data-table
-              :items="formattedOrders"
-              :headers="headers"
-              :items-per-page="5"
-            >
-              <template v-slot:item.edit="{ item }">
-                <v-btn class="blue" icon>
-                  <NuxtLink :to="`/order/${item.id}`" class="white--text">
-                    <v-icon>mdi-pencil</v-icon>
-                  </NuxtLink>
-                </v-btn>
-              </template>
-              <template v-slot:item.delete="{ item }">
-                <v-btn class="red" icon @click="deleteOrder(item.id)">
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
-              </template>
-            </v-data-table>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </v-content>
+  <v-app>
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+          <v-flex xs12>
+            <v-card class="elevation-12">
+              <v-card-title>Lista de Pedidos</v-card-title>
+              <v-data-table
+                :items="formattedOrders"
+                :headers="headers"
+                :items-per-page="5"
+              >
+                <template v-slot:item.edit="{ item }">
+                  <v-btn class="blue" icon>
+                    <NuxtLink :to="`/order/${item.id}`" class="white--text">
+                      <v-icon>mdi-pencil</v-icon>
+                    </NuxtLink>
+                  </v-btn>
+                </template>
+                <template v-slot:item.delete="{ item }">
+                  <v-btn class="red" icon @click="deleteOrder(item.id)">
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
+                </template>
+              </v-data-table>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <script lang="ts">
@@ -36,7 +38,10 @@ import { ApiResponse } from "~/interfaces/apiResponse";
 
 export default defineComponent({
   name: "OrderList",
-  data() {
+  data(): {
+    orders: Array<any>;
+    headers: Array<{ text: string; value: string; sortable?: boolean }>;
+  } {
     return {
       orders: [],
       headers: [
@@ -53,7 +58,7 @@ export default defineComponent({
   methods: {
     async getAllOrders() {
       try {
-        const response = await fetch("http://localhost:5042/api/v1/order");
+        const response = await fetch(`${this.$config.url_base}/order`);
 
         const data: ApiResponse<any> = await response.json();
 
@@ -85,12 +90,9 @@ export default defineComponent({
     async deleteOrder(id: number) {
       if (confirm("Tem certeza que deseja excluir este pedido?")) {
         try {
-          const response = await fetch(
-            `http://localhost:5042/api/v1/order/${id}`,
-            {
-              method: "DELETE",
-            }
-          );
+          const response = await fetch(`${this.$config.url_base}/order/${id}`, {
+            method: "DELETE",
+          });
 
           if (response.ok) {
             alert("Pedido excluído com sucesso!");

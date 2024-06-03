@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent } from "vue";
 import { Product } from "~/interfaces/product";
 
 export default defineComponent({
@@ -59,7 +59,7 @@ export default defineComponent({
   methods: {
     async getAllProducts() {
       try {
-        const response = await fetch("http://localhost:5042/api/v1/product");
+        const response = await fetch(`${this.$config.url_base}/product`);
         const data = await response.json();
 
         if (data.success) {
@@ -89,7 +89,7 @@ export default defineComponent({
       ) {
         try {
           const response = await fetch(
-            `http://localhost:5042/api/v1/product/${id}`,
+            `${this.$config.url_base}/product/${id}`,
             {
               method: "DELETE",
             }

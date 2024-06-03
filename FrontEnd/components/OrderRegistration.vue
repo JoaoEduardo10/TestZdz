@@ -55,7 +55,7 @@ export default defineComponent({
   methods: {
     async getAllProducts() {
       try {
-        const response = await fetch("http://localhost:5042/api/v1/product");
+        const response = await fetch(` ${this.$config.url_base}/product`);
         const data = await response.json();
 
         if (data.success) {
@@ -83,12 +83,12 @@ export default defineComponent({
       }
 
       const orderData = {
-        productId: this.selectedProduct,
+        produtoId: this.selectedProduct,
         quantity: this.quantity,
       };
 
       try {
-        const response = await fetch("http://localhost:5042/api/v1/order", {
+        const response = await fetch(`${this.$config.url_base}/order`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

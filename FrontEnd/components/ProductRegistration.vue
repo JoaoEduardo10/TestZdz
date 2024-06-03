@@ -39,25 +39,27 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "ProductRegistration",
   data() {
     return {
       product: {
         name: "",
         value: 0,
-      } as { name: string; value: number },
+      },
     };
   },
   methods: {
-    async submitForm(this: { product: { name: string; value: number } }) {
+    async submitForm() {
       if (!this.product.name || !this.product.value) {
         alert("Não foi possível registrar o produto");
         return;
       }
 
       try {
-        const response = await fetch("http://localhost:5042/api/v1/product", {
+        const response = await fetch(`${this.$config.url_base}/product`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -81,5 +83,5 @@ export default {
       }
     },
   },
-};
+});
 </script>
