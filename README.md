@@ -1,6 +1,6 @@
 # Teste para Zdz
 
-Esta é a solução para o teste, que envolve a adição de produções e pedidos. Estou confiante de que essa experiência fortaleceu minhas habilidades e me preparou para enfrentar desafios ainda maiores no desenvolvimento de software. Meu conhecimento do Vue é limitado, pois ainda não tinha trabalhado em um projeto com Vue antes. Portanto, meu foco foi em garantir que o backend estivesse excelente. No entanto, isso não significa que o frontend foi feito de qualquer jeito.
+Esta é a solução para o teste, que envolve a adição de produções e pedidos. Estou confiante de que essa experiência fortaleceu minhas habilidades e me preparou para enfrentar desafios ainda maiores no desenvolvimento de software. Ainda não tinha trabalhado em um projeto com Nuxt antes. Portanto, meu foco foi em garantir que o backend estivesse excelente. No entanto, isso não significa que o frontend foi feito de qualquer jeito.
 
 ## 1 - Back End
 
