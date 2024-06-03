@@ -41,7 +41,7 @@
 
 <script>
 export default {
-  name: "ProductEdit",
+  name: "ProductEditPage",
   data() {
     return {
       params: {

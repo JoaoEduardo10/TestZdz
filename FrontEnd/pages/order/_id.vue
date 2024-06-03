@@ -45,7 +45,7 @@
 import { defineComponent, ref, onMounted } from "vue";
 
 export default defineComponent({
-  name: "OrderEdit",
+  name: "OrderEditPage",
   setup() {
     const Id = ref(null);
     const selectedProduct = ref(0);
