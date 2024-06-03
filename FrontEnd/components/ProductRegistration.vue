@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-content>
+    <v-main>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
@@ -34,28 +34,28 @@
           </v-flex>
         </v-layout>
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
+export default {
   name: "ProductRegistration",
-  props: {
-    source: String,
-  },
   data() {
     return {
       product: {
         name: "",
-        value: "",
-      },
+        value: 0,
+      } as { name: string; value: number },
     };
   },
   methods: {
-    async submitForm() {
+    async submitForm(this: { product: { name: string; value: number } }) {
+      if (!this.product.name || !this.product.value) {
+        alert("Não foi possível registrar o produto");
+        return;
+      }
+
       try {
         const response = await fetch("http://localhost:5042/api/v1/product", {
           method: "POST",
@@ -68,7 +68,7 @@ export default defineComponent({
         if (response.status === 204) {
           alert("Produto cadastrado com sucesso!");
           this.product.name = "";
-          this.product.value = "";
+          this.product.value = 0;
           return;
         }
 
@@ -81,5 +81,5 @@ export default defineComponent({
       }
     },
   },
-});
+};
 </script>

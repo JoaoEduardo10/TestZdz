@@ -24,6 +24,10 @@
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-btn icon @click.stop="miniVariant = !miniVariant">
+        <v-icon>mdi-{{ `chevron-${miniVariant ? "right" : "left"}` }}</v-icon>
+      </v-btn>
+
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer />
     </v-app-bar>
@@ -57,23 +61,13 @@ export default {
       drawer: false,
       fixed: false,
       items: [
-        {
-          title: "Cadastro dos Pedidos",
-          to: "/",
-        },
-        {
-          title: "Cadastro de Produto",
-          to: "/product",
-        },
-        {
-          title: "Listagem dos pedidos",
-          to: "/listOrder",
-        },
-        {
-          title: "Listagem dos Produtos",
-          to: "/listProduct",
-        },
+        { title: "Cadastro dos Pedidos", to: "/" },
+        { title: "Cadastro de Produto", to: "/product" },
+        { title: "Listagem dos pedidos", to: "/listOrder" },
+        { title: "Listagem dos Produtos", to: "/listProduct" },
       ],
+      miniVariant: false,
+      right: true, // Certifique-se de que esta propriedade está definida
       rightDrawer: false,
       title: "Test Zdz",
     };

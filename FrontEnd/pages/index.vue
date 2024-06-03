@@ -1,11 +1,9 @@
 <template>
-  <v-container width="100%">
-    <OrderRegistration/>
-  </v-container>
+  <OrderRegistration />
 </template>
 
 <script>
 export default {
-  name: 'IndexPage'
-}
+  name: "IndexPage",
+};
 </script>

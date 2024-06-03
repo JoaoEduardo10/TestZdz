@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-content>
+    <v-main>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
@@ -34,46 +34,47 @@
           </v-flex>
         </v-layout>
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
-import { ApiResponse } from "~/interfaces/apiResponse";
+import { defineComponent } from "vue";
+import { ApiResponseError } from "~/interfaces/apiResponseError";
 import { Product } from "~/interfaces/product";
 
 export default defineComponent({
   name: "OrderRegistration",
-  setup() {
-    const products = ref<Product[]>([]);
-    const selectedProduct = ref<number | null>(null);
-    const quantity = ref<number>(0);
-
-    onMounted(async () => {
+  data() {
+    return {
+      products: [] as Product[],
+      selectedProduct: 0,
+      quantity: 0,
+    };
+  },
+  methods: {
+    async getAllProducts() {
       try {
         const response = await fetch("http://localhost:5042/api/v1/product");
-
-        const data: ApiResponse<Product[]> = await response.json();
+        const data = await response.json();
 
         if (data.success) {
-          products.value = data.result;
+          this.products = data.result;
         } else {
-          console.error("Erro ao buscar produtos:", data.message);
+          console.error("Erro ao buscar produtos:", data.ErrorMessage.Message);
         }
-      } catch (error) {
-        console.error("Erro ao buscar produtos:", error);
+      } catch (error: any) {
+        console.error("Erro ao buscar produtos:", error.message);
       }
-    });
-
-    const submitOrder = async () => {
-      if (selectedProduct.value && quantity.value < 0) {
+    },
+    async submitOrder() {
+      if (this.selectedProduct <= 0 && this.quantity <= 0) {
         alert("Selecione um produto e insira uma quantidade válida.");
         return;
       }
 
-      const product = products.value.find(
-        (p) => p.id === selectedProduct.value
+      const product = this.products.find(
+        (p: Product) => p.id === this.selectedProduct
       );
 
       if (!product) {
@@ -82,9 +83,8 @@ export default defineComponent({
       }
 
       const orderData = {
-        produtoId: selectedProduct.value,
-        quantity: quantity.value,
-        value: product.value * quantity.value,
+        productId: this.selectedProduct,
+        quantity: this.quantity,
       };
 
       try {
@@ -101,21 +101,17 @@ export default defineComponent({
           return;
         }
 
-        const data: ApiResponse<null> = await response.json();
+        const data: ApiResponseError<null> = await response.json();
 
-        alert(`Error: ${data.errorMessage.Message}`);
+        alert(`Error: ${data.ErrorMessage.Message}`);
       } catch (error: any) {
-        console.error("Erro ao criar ordem:", error.Message);
+        console.error("Erro ao criar ordem:", error.message);
         alert("Erro ao criar ordem. Por favor, tente novamente mais tarde.");
       }
-    };
-
-    return {
-      products,
-      selectedProduct,
-      quantity,
-      submitOrder,
-    };
+    },
+  },
+  mounted() {
+    this.getAllProducts();
   },
 });
 </script>
