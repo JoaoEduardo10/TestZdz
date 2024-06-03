@@ -29,7 +29,7 @@ namespace Infrastructure.Services
 
             order.Valor = quantityProdutsValue;
 
-            var orderSaved = _Context.OrdersEntity.Add(_OrderMapper.ToOrderEntity(order, produt));
+            var orderSaved = _Context.OrdersEntity.Add(_OrderMapper.ToOrderFromOrderEntity(order, produt));
 
             await _Context.SaveChangesAsync();
 

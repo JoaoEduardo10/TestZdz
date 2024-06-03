@@ -18,7 +18,7 @@ namespace Infrastructure.Services
 
         public async Task<bool> CreateProductAsync(Product product)
         {
-            var productEntitySaved = _Context.ProductsEntity.Add(_ProductMapper.ToProdutEntity(product));
+            var productEntitySaved = _Context.ProductsEntity.Add(_ProductMapper.ToProductFromProductEntity(product));
 
             await _Context.SaveChangesAsync();
 

@@ -42,7 +42,7 @@ namespace Infrastructure.Services
 
             await _Context.SaveChangesAsync();
 
-            return _OrderMapper.ToOrder(orders);
+            return _OrderMapper.ToOrderEntityListFromOrdeList(orders);
         }
     }
 }

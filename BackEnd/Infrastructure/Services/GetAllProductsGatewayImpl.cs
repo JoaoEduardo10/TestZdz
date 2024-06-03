@@ -21,7 +21,7 @@ namespace Infrastructure.Services
 
         public async Task<List<Product>> GetAllProductsAsync()
         {
-            List<Product> products = _ProductMapper.ToProduct(await _Context.ProductsEntity.ToListAsync());
+            List<Product> products = _ProductMapper.ToProductEntityListFromProductList(await _Context.ProductsEntity.ToListAsync());
 
             return products;
         }

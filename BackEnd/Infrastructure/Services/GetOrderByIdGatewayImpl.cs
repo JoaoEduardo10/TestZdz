@@ -36,7 +36,7 @@ namespace Infrastructure.Services
                     ).FirstOrDefaultAsync(o => o.Id == orderId) ??
                 throw new OrderException(ErrorCodeEnum.OR0002.GetMessage(), ErrorCodeEnum.OR0002.GetCode());
 
-            Order order = _OrderMapper.ToOrder(orderEntity);
+            Order order = _OrderMapper.ToOrderEntityFromOrder(orderEntity);
 
             return order;
         }
