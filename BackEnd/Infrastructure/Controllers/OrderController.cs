@@ -67,7 +67,7 @@ namespace Infrastructure.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] OrderRequestDto orderRequestDtos)
         {
-            Order order = _OrderMapper.ToOrder(orderRequestDtos);
+            Order order = _OrderMapper.ToOrderRequestFtoFromOrder(orderRequestDtos);
 
             await _CreateOrderUseCase.CreateOrdertAsync(order);
 
@@ -77,7 +77,7 @@ namespace Infrastructure.Controllers
         [HttpPut("{orderId}")]
         public async Task<ActionResult> Update(int orderId, [FromBody] OrderRequestDto orderRequestDto)
         {
-            Order order = _OrderMapper.ToOrder(orderRequestDto);
+            Order order = _OrderMapper.ToOrderRequestFtoFromOrder(orderRequestDto);
 
             await _UpdateOrderByIdUseCase.UpdateOrderAsync(orderId, order);
 

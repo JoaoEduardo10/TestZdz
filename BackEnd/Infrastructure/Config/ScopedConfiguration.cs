@@ -22,6 +22,7 @@ namespace Infrastructure.Config
             services.AddScoped<IUpdateProductByIdUseCase, UpdateProductByIdUseCaseImpl>();
             services.AddScoped<IDeleteOrderByIdUseCase, DeleteOrderByIdUseCaseImpl>();
             services.AddScoped<IDeleteProductByIdUseCase, DeleteProductByIdUseCaseImpl>();
+            services.AddScoped<IGetProductByIdUseCase, GetProductByIdUseCaseImpl>();
 
             services.AddScoped<ICreateProductGateway, CreateProductGatewayImpl>();
             services.AddScoped<ICreateOrderGateway, CreateOrderGatewayImpl>();
@@ -32,6 +33,7 @@ namespace Infrastructure.Config
             services.AddScoped<IUpdateProductByIdGateway, UpdateProductByIdGatewayImpl>();
             services.AddScoped<IDeleteOrderByIdGateway, DeleteOrderByIdGatewayImpl>();
             services.AddScoped<IDeleteProductByIdGateway, DeleteProductByIdGatewayImpl>();
+            services.AddScoped<IGetProductByIdGateway, GetProductByIdGatewayImpl>();
 
             return services;
         }

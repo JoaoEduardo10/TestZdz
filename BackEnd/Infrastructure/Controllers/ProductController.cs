@@ -15,16 +15,18 @@ namespace Infrastructure.Controllers
         private readonly IGetAllProductUseCase _GetAllProductUseCase;
         private readonly IUpdateProductByIdUseCase _UpdateProductByIdUseCase;
         private readonly IDeleteProductByIdUseCase _DeleteProductByIdUseCas;
+        private readonly IGetProductByIdUseCase _GetProductByIdUseCase;
 
         private readonly ProductMapper _ProdutsMapper;
 
-        public ProductController(ICreateProductUseCase createProductUseCase, ProductMapper productMapper, IGetAllProductUseCase getAllProductUseCase, IDeleteProductByIdUseCase deleteProductByIdUseCas, IUpdateProductByIdUseCase updateProductByIdUseCase)
+        public ProductController(ICreateProductUseCase createProductUseCase, ProductMapper productMapper, IGetAllProductUseCase getAllProductUseCase, IDeleteProductByIdUseCase deleteProductByIdUseCas, IUpdateProductByIdUseCase updateProductByIdUseCase, IGetProductByIdUseCase getProductByIdUseCase)
         {
             _CreateProductUseCase = createProductUseCase;
             _ProdutsMapper = productMapper;
             _GetAllProductUseCase = getAllProductUseCase;
             _DeleteProductByIdUseCas = deleteProductByIdUseCas;
             _UpdateProductByIdUseCase = updateProductByIdUseCase;
+            _GetProductByIdUseCase = getProductByIdUseCase;
         }
 
         [HttpGet]
@@ -43,10 +45,26 @@ namespace Infrastructure.Controllers
             return Ok(response);
         }
 
+        [HttpGet("{productId}")]
+        public async Task<ActionResult<BaseResponse<Product>>> GetById(int productId)
+        {
+            Product product =  await _GetProductByIdUseCase.GetProductByIdAsync(productId);
+
+            BaseResponse<Product> response = new BaseResponse<Product>()
+            {
+                Message = "Sucesso na busca do produto!",
+                Result = product,
+                StatusCode = 200,
+                Success = true
+            };
+
+            return Ok(response);
+        }
+
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] ProductRequestDto productRequestDto )
         {
-            await _CreateProductUseCase.CreateProductAsync(_ProdutsMapper.ToProdut(productRequestDto));
+            await _CreateProductUseCase.CreateProductAsync(_ProdutsMapper.ToProductRequestDtoFromProduct(productRequestDto));
 
             return Created();
         }
@@ -54,7 +72,7 @@ namespace Infrastructure.Controllers
         [HttpPut("{productId}")]
         public async Task<ActionResult> Update(int productId, [FromBody] ProductRequestDto productRequestDto)
         {
-            await _UpdateProductByIdUseCase.UpdateProductAsync(productId,_ProdutsMapper.ToProdut(productRequestDto));
+            await _UpdateProductByIdUseCase.UpdateProductAsync(productId,_ProdutsMapper.ToProductRequestDtoFromProduct(productRequestDto));
 
             return NoContent();
         }
