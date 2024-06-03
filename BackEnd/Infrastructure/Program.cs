@@ -33,11 +33,6 @@ builder.Services.AddDbContext<InfrastrutureDataBaseContext>(
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
-
-app.UseCors("corspolicy");
-
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -52,6 +47,13 @@ using (var scope = app.Services.CreateScope())
         logger.LogError(ex, "An error occurred while migrating the database.");
     }
 }
+
+app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedingDefaultProduct>().Seed();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseCors("corspolicy");
 
 app.UseHttpsRedirection();
 

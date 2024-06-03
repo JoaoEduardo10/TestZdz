@@ -1,5 +1,6 @@
 ﻿using Application.Gateway;
 using Application.UseCaseImpl;
+using Infrastructure.Data;
 using Infrastructure.Mapper;
 using Infrastructure.Services;
 using UseCase.Interfaces;
@@ -34,6 +35,9 @@ namespace Infrastructure.Config
             services.AddScoped<IDeleteOrderByIdGateway, DeleteOrderByIdGatewayImpl>();
             services.AddScoped<IDeleteProductByIdGateway, DeleteProductByIdGatewayImpl>();
             services.AddScoped<IGetProductByIdGateway, GetProductByIdGatewayImpl>();
+
+
+            services.AddScoped<SeedingDefaultProduct>();
 
             return services;
         }
