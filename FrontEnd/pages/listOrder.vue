@@ -1,9 +1,15 @@
 <template>
-  <ListOrder />
+  <TableList :itemType="itemType" :title="title" />
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "ListOrderPage",
+  data() {
+    return {
+      itemType: "order",
+      title: "Listagem dos pedidos",
+    };
+  },
 };
 </script>
