@@ -12,7 +12,7 @@
             >
               <template v-slot:item.edit="{ item }">
                 <v-btn class="blue" icon>
-                  <NuxtLink :to="`produto/${item.id}`" class="white--text">
+                  <NuxtLink :to="`product/${item.id}`" class="white--text">
                     <v-icon>mdi-pencil</v-icon>
                   </NuxtLink>
                 </v-btn>

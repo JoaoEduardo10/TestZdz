@@ -14,6 +14,7 @@
           :to="item.to"
           router
           exact
+          @click="closeDrawer"
         >
           <v-list-item-content>
             <v-list-item-title>{{ item.title }}</v-list-item-title>
@@ -23,10 +24,6 @@
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? "right" : "left"}` }}</v-icon>
-      </v-btn>
-
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer />
     </v-app-bar>
@@ -77,11 +74,14 @@ export default {
           to: "/listProduct",
         },
       ],
-      miniVariant: false,
-      right: true,
       rightDrawer: false,
       title: "Test Zdz",
     };
+  },
+  methods: {
+    closeDrawer() {
+      this.drawer = false;
+    },
   },
 };
 </script>

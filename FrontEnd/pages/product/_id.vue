@@ -5,6 +5,9 @@
         <v-flex xs12 sm8 md4>
           <v-card class="elevation-12">
             <v-toolbar dark color="primary">
+              <v-btn icon @click="$router.push('/listProduct')">
+                <v-icon>mdi-arrow-left</v-icon>
+              </v-btn>
               <v-toolbar-title>Adicionar um novo produto</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
@@ -86,8 +89,6 @@ export default {
       };
 
       try {
-        alert(this.params);
-
         const response = await fetch(
           `http://localhost:5042/api/v1/product/${this.params.id}`,
           {
