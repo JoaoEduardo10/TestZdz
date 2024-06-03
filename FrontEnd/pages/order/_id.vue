@@ -6,6 +6,9 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
+                <v-btn icon @click="$router.push('/listOrder')">
+                  <v-icon>mdi-arrow-left</v-icon>
+                </v-btn>
                 <v-toolbar-title>Editar Pedido</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
@@ -47,16 +50,17 @@ import { Product } from "~/interfaces/product";
 export default defineComponent({
   name: "OrderEdit",
   setup() {
-    const selectedProductId = ref<number | null>(null);
+    const Id = ref<number | null>(null);
+    const selectedProduct = ref<number>(0);
     const quantity = ref<number>(0);
     const products = ref<Product[]>([]);
 
     const fetchOrder = async () => {
       try {
-        selectedProductId.value = parseInt($nuxt.$route.params.id);
+        Id.value = parseInt($nuxt.$route.params.id);
 
         const response = await fetch(
-          `http://localhost:5042/api/v1/order/${selectedProductId.value}`
+          `http://localhost:5042/api/v1/order/${Id.value}`
         );
 
         const data: ApiResponse<any> = await response.json();
@@ -64,6 +68,7 @@ export default defineComponent({
         if (data.success) {
           const order = data.result;
           quantity.value = order.quantity;
+          selectedProduct.value = data.result.product.id;
         } else {
           console.error("Erro ao buscar pedido:", data.message);
         }
@@ -89,28 +94,19 @@ export default defineComponent({
     };
 
     const updateOrder = async () => {
-      if (!selectedProductId.value || quantity.value <= 0) {
+      if (!selectedProduct.value || quantity.value <= 0) {
         alert("Selecione um produto e insira uma quantidade válida.");
         return;
       }
 
-      const product = products.value.find(
-        (p) => p.id === selectedProductId.value
-      );
-
-      if (!product) {
-        alert("Produto não encontrado na lista de produtos.");
-        return;
-      }
-
       const orderData = {
-        productId: selectedProductId.value,
-        quantity: quantity.value,
+        produtoId: selectedProduct.value,
+        quantity: Number(quantity.value),
       };
 
       try {
         const response = await fetch(
-          `http://localhost:5042/api/v1/order/${selectedProductId.value}`,
+          `http://localhost:5042/api/v1/order/${Id.value}`,
           {
             method: "PUT",
             headers: {
@@ -122,16 +118,18 @@ export default defineComponent({
 
         if (response.ok) {
           alert("Pedido atualizado com sucesso!");
-          // Redirecionar ou realizar outra ação após a atualização
-        } else {
-          const data: ApiResponseError<null> = await response.json();
-          alert(`Erro ao atualizar pedido: ${data.ErrorMessage.Message}`);
+          return;
         }
+
+        const data: ApiResponseError<null> = await response.json();
+        alert(`Erro ao atualizar pedido: ${data.ErrorMessage.Message}`);
+        return;
       } catch (error: any) {
         console.error("Erro ao atualizar pedido:", error.Message);
         alert(
           "Erro ao atualizar pedido. Por favor, tente novamente mais tarde."
         );
+        return;
       }
     };
 
@@ -141,10 +139,11 @@ export default defineComponent({
     });
 
     return {
-      selectedProductId,
+      Id,
       quantity,
       products,
       updateOrder,
+      selectedProduct,
     };
   },
 });

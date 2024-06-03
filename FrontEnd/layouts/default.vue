@@ -69,8 +69,12 @@ export default {
           to: "/product",
         },
         {
-          title: "Listagem de pedidos",
+          title: "Listagem dos pedidos",
           to: "/listOrder",
+        },
+        {
+          title: "Listagem dos Produtos",
+          to: "/listProduct",
         },
       ],
       miniVariant: false,
