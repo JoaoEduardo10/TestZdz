@@ -8,9 +8,7 @@ Foi construído com o intuito de ser escalável e modular, dividindo-o em quatro
 
 - `ESTRUTURA`
 
-  - `1- Core:` Camada mais baixa do projeto. Não consegue acessar suas camadas superiores. Nesta camada estão os modelos de dados e as regras de negócios definidas. Você pode ver o modelo abaixo:
-
-  ![imagem Do Modelo]("./BackEnd/Zdz.drawio.png")
+  - `1- Core:` Camada mais baixa do projeto. Não consegue acessar suas camadas superiores. Nesta camada estão os modelos de dados e as regras de negócios definidas. Você pode ver o modelo dentro de BackEnd `zdz.drawio.png`
 
   . tambem gaursda as excercoes de error dos modelos
 
