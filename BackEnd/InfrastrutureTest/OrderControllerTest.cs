@@ -1,4 +1,3 @@
-using Azure;
 using Core.Domain;
 using Infrastructure.Dtos.Request;
 using Infrastructure.Dtos.Response;
