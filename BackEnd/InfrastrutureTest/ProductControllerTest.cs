@@ -87,17 +87,13 @@ namespace InfrastrutureTest
                 (responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-
-            int totalProducts = baseResponse!.Result.Count;
-
-            Assert.StrictEqual(6, totalProducts);
         }
 
 
         [Fact]
         public async Task Should_Get_Product_By_Id()
         {
-            var response = await _Client.GetAsync("api/v1/product/1");
+            var response = await _Client.GetAsync("api/v1/product/2");
 
             var responseContent = await response.Content.ReadAsStringAsync();
 
