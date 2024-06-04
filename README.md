@@ -48,4 +48,4 @@ Caso queira ver a documentação das rotas, acesse http://localhost:5042/swagger
 
 Se você rodou o projeto manualmente seguindo os passos anteriores, apenas altere a porta para a porta selecionada da sua aplicação!
 
-Também foi adicinado teste na aplicação BackEnd. Mas como se trata de um simples projeto de pedidos e produtos adicinei somente testes de integraçao.
+Também foi adicinado teste na aplicação BackEnd. Mas como se trata de um simples projeto de pedidos e produtos adicinei somente testes de integraçao. E Caso não tenha o Dokcer Intalado na maquina os testes não vão passar.
