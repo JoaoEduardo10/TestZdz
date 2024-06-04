@@ -65,3 +65,5 @@ app.UseMiddleware(typeof(ProductErrorHandlingMiddleware));
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }

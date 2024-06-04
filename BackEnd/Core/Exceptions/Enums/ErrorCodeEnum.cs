@@ -23,7 +23,7 @@ namespace Core.Exceptions.enums
             { ErrorCodeEnum.PRO0001, ("Minimo de caracteres são 3", "PRO-0001")},
             { ErrorCodeEnum.PRO0002, ("Valor não pode ser menor ao igual a zero", "PRO-0002")},
             { ErrorCodeEnum.PRO0003, ("Não foi possivel cria o produto", "PRO-0003")},
-            { ErrorCodeEnum.PRO0004, ("Product não encontrado", "PRO-0004")},
+            { ErrorCodeEnum.PRO0004, ("Produto não encontrado", "PRO-0004")},
             { ErrorCodeEnum.PRO0005, ("Não foi possivel atualizar o Produto", "PRO-0005")},
             { ErrorCodeEnum.PRO0006, ("Não foi possivel apagar o Produto", "PRO-0006")},
 

@@ -18,21 +18,21 @@ namespace Core.Domain
             Product = product;
             Valor = MinValue(valor);
             CreatedAt = createdAt;
-            Quantity = quantity;
+            Quantity = MinValue(quantity);
         }
 
         public Order(Product product, float valor, int quantity)
         {
             Product = product;
             Valor = MinValue(valor);
-            Quantity = quantity;
+            Quantity = MinValue(quantity);
             CreatedAt = DateTime.UtcNow;
         }
 
         public Order(float valor, int quantity)
         {
             Valor = valor;
-            Quantity = quantity;
+            Quantity = MinValue(quantity);
             CreatedAt = DateTime.UtcNow;
         }
 
@@ -41,6 +41,16 @@ namespace Core.Domain
         }
 
         private static float MinValue(float value)
+        {
+            if (value <= 0)
+            {
+                throw new OrderException(ErrorCodeEnum.PRO0002.GetMessage(), ErrorCodeEnum.PRO0002.GetCode());
+            }
+
+            return value;
+        }
+
+        private static int MinValue(int value)
         {
             if (value <= 0)
             {

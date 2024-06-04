@@ -2,6 +2,8 @@
 using Core.Exceptions;
 using Infrastructure.Dtos.Response;
 using System.Text.Json;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Infrastructure.Middlewares
 {
@@ -26,113 +28,39 @@ namespace Infrastructure.Middlewares
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context, ProductException error)
+        private async Task HandleExceptionAsync(HttpContext context, ProductException error)
         {
             string defaultMessage = "Falha na requisição";
-
-            if (error.Code == ErrorCodeEnum.PRO0001.GetCode())
-            {
-                int statusCode = 400;
-
-                context.Response.ContentType = "application/json";
-                context.Response.StatusCode = statusCode;
-
-                var response = JsonSerializer.Serialize(
-                    new BaseResponse<object>
-                    {
-                        Message = defaultMessage,
-                        StatusCode = statusCode,
-                        Success = false,
-                        ErrorMessage = new ErrorMessage(error.Message, error.Code),
-                        Result = new { }
-                    }
-                );
-
-                return context.Response.WriteAsync(response);
-
-            }
-
-            if (error.Code == ErrorCodeEnum.PRO0002.GetCode())
-            {
-                int statusCode = 400;
-
-                context.Response.ContentType = "application/json";
-                context.Response.StatusCode = statusCode;
-
-                var response = JsonSerializer.Serialize(
-                    new BaseResponse<object>
-                    {
-                        Message = defaultMessage,
-                        StatusCode = statusCode,
-                        Success = false,
-                        ErrorMessage = new ErrorMessage(error.Message, error.Code),
-                        Result = new { }
-                    }
-                );
-
-                return context.Response.WriteAsync(response);
-
-            }
-
-            if (error.Code == ErrorCodeEnum.PRO0003.GetCode())
-            {
-                int statusCode = 404;
-
-                context.Response.ContentType = "application/json";
-                context.Response.StatusCode = statusCode;
-
-                var response = JsonSerializer.Serialize(
-                    new BaseResponse<object>
-                    {
-                        Message = defaultMessage,
-                        StatusCode = statusCode,
-                        Success = false,
-                        ErrorMessage = new ErrorMessage(error.Message, error.Code),
-                        Result = new { }
-                    }
-                );
-
-                return context.Response.WriteAsync(response);
-            }
-
-            if (error.Code == ErrorCodeEnum.PRO0004.GetCode())
-            {
-                int statusCode = 404;
-
-                context.Response.ContentType = "application/json";
-                context.Response.StatusCode = statusCode;
-
-                var response = JsonSerializer.Serialize(
-                    new BaseResponse<object>
-                    {
-                        Message = defaultMessage,
-                        StatusCode = statusCode,
-                        Success = false,
-                        ErrorMessage = new ErrorMessage(error.Message, error.Code),
-                        Result = new { }
-                    }
-                );
-
-                return context.Response.WriteAsync(response);
-            }
-
-            int statusCodeInternal = 500;
+            int statusCode = GetStatusCode(error.Code);
 
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = statusCodeInternal;
+            context.Response.StatusCode = statusCode;
 
-            var responseInternal = JsonSerializer.Serialize(
+            var response = JsonSerializer.Serialize(
                 new BaseResponse<object>
                 {
                     Message = defaultMessage,
-                    StatusCode = statusCodeInternal,
+                    StatusCode = statusCode,
                     Success = false,
-                    ErrorMessage = new ErrorMessage(error.Message, "null"),
+                    ErrorMessage = new ErrorMessage(error.Message, error.Code),
                     Result = new { }
                 }
             );
 
-            return context.Response.WriteAsync(responseInternal);
+            await context.Response.WriteAsync(response);
+        }
+
+        private int GetStatusCode(string errorCode)
+        {
+            return errorCode switch
+            {
+                _ when errorCode == ErrorCodeEnum.PRO0001.GetCode() => 400,
+                _ when errorCode == ErrorCodeEnum.PRO0002.GetCode() => 400,
+                _ when errorCode == ErrorCodeEnum.PRO0003.GetCode() => 404,
+                _ when errorCode == ErrorCodeEnum.PRO0004.GetCode() => 404,
+                _ when errorCode == ErrorCodeEnum.PRO0005.GetCode() => 409,
+                _ => 400
+            };
         }
     }
 }
