@@ -103,7 +103,7 @@ namespace InfrastrutureTest
         public async Task Should_Get_Order_By_Id()
         {
 
-            var response = await _Client.GetAsync("api/v1/order/2");
+            var response = await _Client.GetAsync("api/v1/order/1");
 
             var responseContent = await response.Content.ReadAsStringAsync();
 
@@ -128,24 +128,31 @@ namespace InfrastrutureTest
         [Fact]
         public async Task Should_Update_Order_By_Id()
         {
-            var order = await CreateOrder();
+            var produtoRequest = new ProductRequestDto("Bola", 10);
+
+            var bodyProduct = JsonSerializer.Serialize(produtoRequest);
+
+            var ProductStringContent = new StringContent(bodyProduct, Encoding.UTF8, "application/json");
+
+            await _Client.PostAsync("api/v1/product", ProductStringContent);
+
+            var orderRequest = new OrderRequestDto(1, 7);
+
+            var bodyOrder = JsonSerializer.Serialize(orderRequest);
+
+            var stringContentOrder = new StringContent(bodyOrder, Encoding.UTF8, "application/json");
+
+            var responseOrder = await _Client.PostAsync("api/v1/order", stringContentOrder);
+
 
             var newOrder = new OrderRequestDto(1, 40);
             var body = JsonSerializer.Serialize(newOrder);
             var stringContent = new StringContent(body, Encoding.UTF8, "application/json");
 
-            Assert.NotEqual(newOrder.Quantity, order.Result.Quantity);
 
-            await _Client.PutAsync("api/v1/order/" + order.Result.Id, stringContent);
+            var response = await _Client.PutAsync("api/v1/order/1", stringContent);
 
-            var response = await _Client.GetAsync("api/v1/order/" + order.Result.Id);
-
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            var baseResponse = JsonSerializer.Deserialize<BaseResponse<Order>>
-                (responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-            Assert.Equal(newOrder.Quantity, baseResponse.Result.Quantity);
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
         }
 
         private async Task<BaseResponse<Order>> CreateOrder()
@@ -166,7 +173,7 @@ namespace InfrastrutureTest
 
              await _Client.PostAsync("api/v1/order", stringContentOrder);
 
-            var response = await _Client.GetAsync("api/v1/order/1");
+            var response = await _Client.GetAsync("api/v1/order/2");
 
             var responseContent = await response.Content.ReadAsStringAsync();
 

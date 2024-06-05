@@ -5,13 +5,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
 using Respawn;
-using Testcontainers.PostgreSql;
+using Testcontainers.MsSql;
 
 namespace InfrastrutureTest
 {
    public class InfrastrutureApplicationFactory<TProgram> : WebApplicationFactory<TProgram>, IAsyncLifetime where TProgram : class
     {
-        private readonly PostgreSqlContainer _PostgreSqlContainer = new PostgreSqlBuilder().Build();
+        private readonly MsSqlContainer  _SqlServerContainer = new MsSqlBuilder()
+            .WithEnvironment("ACCEPT_EULA", "Y")
+            .Build();
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -25,24 +27,24 @@ namespace InfrastrutureTest
 
                 services.AddDbContext<InfrastrutureDataBaseContext>(options =>
                 {
-                    options.UseNpgsql(_PostgreSqlContainer.GetConnectionString());
+                    options.UseSqlServer(_SqlServerContainer.GetConnectionString());
                 });
             });
         }
 
         public async Task InitializeAsync()
         {
-            await _PostgreSqlContainer.StartAsync();
+            await _SqlServerContainer.StartAsync();
         }
 
         async Task IAsyncLifetime.DisposeAsync()
         {
-            await _PostgreSqlContainer.StopAsync();
+            await _SqlServerContainer.StopAsync();
         }
 
         public async Task ClearDataBaseAsync()
         {
-            using var connnection = new NpgsqlConnection(_PostgreSqlContainer.GetConnectionString());
+            using var connnection = new NpgsqlConnection(_SqlServerContainer.GetConnectionString());
             await connnection.OpenAsync();
             var respawner = await Respawner.CreateAsync(connnection, new RespawnerOptions
             {
