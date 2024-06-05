@@ -12,6 +12,7 @@ COPY ["Core/Core.csproj", "Core/"]
 COPY ["UseCase/UseCase.csproj", "UseCase/"]
 COPY ["Application/Application.csproj", "Application/"]
 COPY ["Infrastructure/Infrastructure.csproj", "Infrastructure/"]
+COPY ["InfrastructureTest/InfrastructureTest.csproj", "InfrastructureTest/"]
 
 RUN dotnet restore "BackEndSolution.sln"
 

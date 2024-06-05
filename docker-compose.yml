@@ -1,14 +1,15 @@
 version: "3.8"
 
 services:
-  db-postgres-server:
-    image: postgres:16.1
+  sqlserver:
+    container_name: sqlserver
+    image: mcr.microsoft.com/mssql/server:2019-latest
     environment:
-      POSTGRES_PASSWORD: root
-      POSTGRES_USER: root
-      POSTGRES_DB: postgres
+      SA_PASSWORD: "Testzdz2024"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
     ports:
-      - "5432:5432"
+      - "1433:1433"
   back-end:
     build:
       context: ./BackEnd
@@ -16,8 +17,8 @@ services:
     ports:
       - "5042:8080"
     depends_on:
-      - db-postgres-server
-    command: sh -c "sleep 2 && dotnet Infrastructure.dll"
+      - sqlserver
+    command: sh -c "sleep 7 && dotnet Infrastructure.dll"
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
   front-end:
